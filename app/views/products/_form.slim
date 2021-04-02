@@ -1,0 +1,13 @@
+= form_with model: product do |f|
+  br
+  div = f.text_field :title, placeholder: 'Title'
+  br
+  div = f.select :status, Product.statuses.keys.map {|u| [u.titleize, u]}
+  br
+  div = f.collection_check_boxes :category_ids, Category.all, :id, :category_name
+  br
+  div = f.text_area :description, placeholder: 'Write description here'
+  br
+  div = f.number_field :stock, placeholder: 'Stock'
+  br
+  div = f.submit

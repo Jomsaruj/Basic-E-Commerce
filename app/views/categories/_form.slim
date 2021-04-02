@@ -1,0 +1,7 @@
+= form_with model: category do |f|
+  br
+  div = f.text_field :category_name, placeholder: 'Category'
+  br
+  div = f.text_area :description, placeholder: 'Write description here'
+  br
+  div = f.submit

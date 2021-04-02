@@ -1,0 +1,19 @@
+h1 = "Product name : #{@product.title}"
+
+hr
+div = "Categories : "
+- @product.categories.each do |c|
+        div class="badge badge-pill badge-primary" = "#{c.category_name}"
+br
+br
+div = "Description : #{@product.description}"
+br
+div = "Avaliable in stock : #{@product.stock}"
+br
+div = "Created at : #{time_ago_in_words(@product.created_at)} Ago"
+br
+div = "Last Updated : #{time_ago_in_words(@product.updated_at)} Ago"
+br
+div = link_to admin_index_path do 
+        = button_tag 'Back', class: 'btn btn-primary'
+

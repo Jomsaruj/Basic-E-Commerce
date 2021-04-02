@@ -1,0 +1,11 @@
+h1 = "Category name : #{@category.category_name}"
+
+hr
+div = "Description : #{@category.description}"
+br
+div = "Created at : #{time_ago_in_words(@category.created_at)} Ago"
+br
+div = "Last Updated : #{time_ago_in_words(@category.updated_at)} Ago"
+br
+div = link_to categories_path do 
+        = button_tag 'Back', class: 'btn btn-primary'
