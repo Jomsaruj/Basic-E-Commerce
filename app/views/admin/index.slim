@@ -12,7 +12,7 @@
      = text_field_tag 'search', @search, placeholder: 'Type something',
       class: 'form-control'
   .col-2
-    = link_to admin_index_path(format: :csv) do
+    = link_to admin_path(format: :csv) do
       = button_tag 'Download CSV', class: 'btn btn-secondary float-right'
 
 .row.mt-2
@@ -20,33 +20,38 @@
     table.table.table-bordered.table-striped.table-hover
       thead.thead-dark
         tr
-          th ID
           th Title
+          th Primary Image
+          th Supporting Images
           th Status
           th Description
           th Stock
-          th Created at
           th Updated at
           th Action
       tbody
         - @products.each do |p|
           tr.hoverable-row
-            td = p.id
             td.font-weight-bold = p.title
+            td
+              - if p.primary_image.attached?
+                = image_tag p.primary_image, width: '64px'
+            td
+              - p.supporting_images.each do |image|
+                = image_tag image, width: '32px'
             td = p.status
             td = p.description
             td = p.stock
-            td.font-weight-light = "#{time_ago_in_words(p.created_at)} Ago"
+            / td.font-weight-light = "#{time_ago_in_words(p.created_at)} Ago"
             td.font-weight-light = "#{time_ago_in_words(p.updated_at)} Ago"
             td
               span 
-                = link_to product_path(p) do
+                = link_to admin_product_path(p) do
                   i.fas.fa-eye
               span.ml-3
-                = link_to edit_product_path(p) do
+                = link_to edit_admin_product_path(p) do
                   i.fas.fa-pen
               span.ml-3
-                = link_to product_path(p), method: :delete, data: {confirm: "Are you sure?"} do
+                = link_to admin_product_path(p), method: :delete, data: {confirm: "Are you sure?"} do
                   i.fas.fa-trash
 
 .row
@@ -55,18 +60,18 @@
   - if admin_signed_in?
       .col-4
         .float-right
-          = link_to categories_path do 
+          = link_to admin_categories_path do 
             = button_tag 'Manage categories', class: 'btn btn-primary'
       .col-2
         .float-right
-          = link_to new_product_path do 
+          = link_to new_admin_product_path do 
             = button_tag 'Add a new product', class: 'btn btn-primary'
 div
   hr
 
 .row
   .col
-    = form_tag products_csv_upload_path, multipart: true do
+    = form_tag admin_products_csv_upload_path, multipart: true do
       h2 Upload new products 
       h4 Note: CSV required 2 attributes - Product_name, Description
       br

@@ -1,0 +1,53 @@
+.row
+  .col-6
+    h1 Categories List
+  .col-6
+    .float-right
+      span = current_admin.email
+      span.ml-3 = link_to 'Log out', destroy_admin_session_path, method: :delete
+
+.row
+  .col
+    = form_tag admin_categories_path, method: :get do
+     = text_field_tag 'search', @search, placeholder: 'Type something',
+      class: 'form-control'
+
+.row.mt-2
+  .col
+    table.table.table-bordered.table-striped.table-hover
+      thead.thead-dark
+        tr
+          th ID
+          th Category title
+          th Description
+          th Created at
+          th Updated at
+          th Action
+      tbody
+        - @categories.each do |p|
+          tr.hoverable-row
+            td = p.id
+            td.font-weight-bold = p.category_name
+            td = p.description
+            td.font-weight-light = "#{time_ago_in_words(p.created_at)} Ago"
+            td.font-weight-light = "#{time_ago_in_words(p.updated_at)} Ago"
+            td
+              span 
+                = link_to  admin_category_path(p) do
+                  i.fas.fa-eye
+              span.ml-3
+                = link_to admin_category_path(p), method: :delete, data: {confirm: "Are you sure?"} do
+                  i.fas.fa-trash
+
+.row
+  .col-6
+      = paginate @categories
+  - if admin_signed_in?
+        .col-4
+            .float-right
+                = link_to admin_path do 
+                    = button_tag 'Back', class: 'btn btn-primary'
+        .col-2
+            .float-right
+                = link_to new_admin_category_path do 
+                    = button_tag 'Add a new category', class: 'btn btn-primary'

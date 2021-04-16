@@ -7,7 +7,7 @@
             span = current_admin.email
             span.ml-3 = link_to 'Log out', destroy_admin_session_path, method: :delete
       - else
-        span.ml-3 = link_to 'Log in as administrator', admin_index_path
+        span.ml-3 = link_to 'Log in as administrator', admin_path
 
 .row
   .col
@@ -20,16 +20,22 @@
     table.table.table-bordered.table-striped.table-hover
       thead.thead-dark
         tr
-          th ID
           th Title
+          th Primary Image
+          th Supporting Images
           th Status
           th Description
           th Stock
       tbody
         - @products.each do |p|
           tr.hoverable-row
-            td = p.id
             td.font-weight-bold = p.title
+            td
+              - if p.primary_image.attached?
+                = image_tag p.primary_image, width: '64px'
+            td
+              - p.supporting_images.each do |image|
+                = image_tag image, width: '32px'
             td = p.status
             td = p.description
             td = p.stock
@@ -40,5 +46,5 @@
   - if admin_signed_in?
       .col-6
         .float-right
-          = link_to admin_index_path do 
+          = link_to admin_path do 
             = button_tag "Configurate as #{current_admin.email}", class: 'btn btn-primary'

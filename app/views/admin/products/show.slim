@@ -1,0 +1,31 @@
+h1 = "Product name : #{@product.title}"
+
+hr
+h4 Primary Image
+- if @product.primary_image.attached?
+        = image_tag @product.primary_image, width: '150px'
+br
+br
+div Supporting Images
+- @product.supporting_images.each do |image|
+        = image_tag image, width: '64px'
+br
+br
+div = "Categories : "
+- @product.categories.each do |c|
+        div class="badge badge-pill badge-primary" = "#{c.category_name}"
+br
+br
+div = "Status : #{@product.status}"
+br
+div = "Description : #{@product.description}"
+br
+div = "Avaliable in stock : #{@product.stock}"
+br
+div = "Created at : #{time_ago_in_words(@product.created_at)} Ago"
+br
+div = "Last Updated : #{time_ago_in_words(@product.updated_at)} Ago"
+br
+div = link_to admin_path do 
+        = button_tag 'Back', class: 'btn btn-primary'
+

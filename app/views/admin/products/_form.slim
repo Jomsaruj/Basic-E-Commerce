@@ -1,0 +1,32 @@
+= form_with model: [:admin, product] do |f|
+  br
+  div.font-weight-bold Primary Image(single)
+  - if @product.primary_image.attached?
+    = image_tag @product.primary_image, width: '150px'
+    div = link_to 'Remove', delete_primary_image_admin_product_url(@product.primary_image.id), method: :delete
+    br
+  div = f.file_field :primary_image
+  br
+  div.font-weight-bold Supporting Images(multiple)
+  - @product.supporting_images.each do |image|
+    = image_tag image, width: '64px'
+    div = link_to 'Remove', delete_supporting_image_admin_product_url(image.id), method: :delete
+    br
+  div = f.file_field :supporting_images, multiple: true
+  br
+  div.font-weight-bold Product Title
+  div = f.text_field :title, placeholder: 'Title'
+  br
+  div.font-weight-bold Status
+  div = f.select :status, Product.statuses.keys.map {|u| [u.titleize, u]}
+  br
+  div.font-weight-bold Categories
+  div = f.collection_check_boxes :category_ids, Category.all, :id, :category_name
+  br
+  div.font-weight-bold Description
+  div = f.text_area :description, placeholder: 'Write description here'
+  br
+  div.font-weight-bold Stock
+  div = f.number_field :stock, placeholder: 'Stock'
+  br
+  div = f.submit

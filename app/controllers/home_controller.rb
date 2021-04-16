@@ -6,7 +6,6 @@ class HomeController < ApplicationController
     @products = @products
       .where("title LIKE ? or description LIKE ?", "%#{@search}%", "%#{@search}%") if @search.present?
     @products = @products.page(params[:page]).per(12)
-
-
+    
   end
 end
