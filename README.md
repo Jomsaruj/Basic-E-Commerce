@@ -1,24 +1,3 @@
-# README
+# Online clothing store web application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This is a basic E-commerce web application develop using Ruby on Rails. You can visit my deployed web at this link https://ssd2021-6210545700-commerce.herokuapp.com/
